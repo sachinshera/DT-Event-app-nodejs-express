@@ -19,6 +19,16 @@ const eventsRouter = require('./routes/events.routes');
 
 app.use("/api/v3/app/events", eventsRouter);
 
+// error handling middleware
+
+app.use((err, req, res, next) => {
+    console.log(err);
+    res.status(500).json({
+        message: "Server error",
+        error: err
+    });
+    next();
+});
 app.listen(port, () => {
     console.log(`Server is up on port ${port}`);
 })
